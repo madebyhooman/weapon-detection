@@ -28,7 +28,9 @@ main_websocket = None
 active_sources = {}
 processing_tasks = {}
 
-
+if platform.system() == "Windows":
+    import winsound
+    
 def play_alert_sound():
     if platform.system() == "Windows":
         duration = 1000  # Reduced from 5000 to 1000ms to be less intrusive
