@@ -24,14 +24,6 @@ model = YOLO(MODEL_PATH)
 
 WEAPON_CLASSES = ["Baton", "Knife", "Pistol", "Rifle", "Switchblades"]
 
-ALERT_INTERVAL = 5
-last_alert_time = 0
-
-
-COLORS_10 = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255)]
-
-
-# Global WebSocket connection
 main_websocket = None
 active_sources = {}
 processing_tasks = {}
