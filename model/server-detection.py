@@ -18,7 +18,7 @@ from io import BytesIO
 from PIL import Image
 
 
-MODEL_PATH = r"myenv\model\weapon-detection.pt"
+MODEL_PATH = r"model\weapon-detection.pt"
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = YOLO(MODEL_PATH)
 
