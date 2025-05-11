@@ -1,9 +1,5 @@
 /ren
 render.yaml
 
-/py
-app.py
-server-websocket.py
-server-detection.py
-detections_log.json
-flaskapi-bridge.py
+/original files
+model/
