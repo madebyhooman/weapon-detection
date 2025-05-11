@@ -1,0 +1,29 @@
+services:
+  - name: server-websocket
+    type: web
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python server-websocket.py"
+    envVars:
+      - key: WEBSOCKET_SERVER_URL
+        value: "ws://server-websocket:8000/ws/detector-server"
+
+  - name: server-detection
+    type: web
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python server-detection.py"
+    envVars:
+      - key: WEBSOCKET_SERVER_URL
+        value: "ws://server-websocket:8000/ws/detector-server"
+
+  - name: flaskapi-bridge
+    type: web
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python flaskapi-bridge.py"
+    envVars:
+      - key: DETECTION_SERVER_URL
+        value: "http://server-detection:5000"
+      - key: WEBSOCKET_SERVER_URL
+        value: "ws://server-websocket:8000/ws/detector-server"
