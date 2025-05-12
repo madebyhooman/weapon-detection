@@ -40,6 +40,29 @@ app = FastAPI()
 clients: Dict[str, WebSocket] = {}
 active_connections: Set[WebSocket] = set()
 
+# Add a root route to provide basic information
+@app.get("/")
+async def root():
+    """Provide basic information about the weapon detection service"""
+    return {
+        "service": "Weapon Detection Server",
+        "version": "1.0.0",
+        "status": "Operational",
+        "websocket_endpoint": "/ws/{client_name}",
+        "description": "WebSocket-based weapon detection service using YOLO model"
+    }
+
+# Add a health check route
+@app.get("/health")
+async def health_check():
+    """Provide a health check endpoint"""
+    return {
+        "status": "healthy",
+        "model_loaded": model is not None,
+        "device": str(device),
+        "active_clients": len(clients)
+    }
+
 # Detection model configuration
 MODEL_PATH = r"weapon-detection.pt"
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -732,7 +755,7 @@ async def shutdown_event():
 
 # Entry point when running this script directly
 if __name__ == "__main__":
-    logger.info("🚀 Starting Combined Server on port 8000")
+    logger.info("🚀 Starting Weapon Detction Server on port 8000")
     # Get port from environment variable for compatibility with hosting platforms like Render
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
